@@ -1,0 +1,86 @@
+<div class="card m-3">
+  <h5 class="card-header">{{isNewProduct ? 'Add Product' : 'Product Details'}}</h5>
+  <div class="card-body">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-row" *ngIf="isNewProduct; else editProduct">
+        <div class="form-group col-12">
+          <label>Quantity</label>
+          <input type="number"
+                 formControlName="quantity"
+                 class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" />
+          <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+            <div *ngIf="f.quantity.errors?.required">Product Quantity is required</div>
+          </div>
+        </div>
+      </div>
+      <ng-template #editProduct>
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label>Product Id</label>
+            <input type="text"
+                  formControlName="pid"
+                  class="form-control" />
+          </div>
+          <div class="form-group col-6">
+            <label>Quantity</label>
+            <input type="text"
+                  formControlName="quantity"
+                  class="form-control" />
+          </div>
+        </div>
+      </ng-template>
+
+      <div class="form-row">
+        <div class="form-group col-12">
+          <label>Product Name</label>
+          <input type="text"
+                 formControlName="pname"
+                 class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.pname.errors }" />
+          <div *ngIf="submitted && f.pname.errors" class="invalid-feedback">
+            <div *ngIf="f.pname.errors?.required">Product Name is required</div>
+            <div *ngIf="f.pname.errors?.invalidName">Product Name should be alphanumeric only</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-12">
+          <label>Cost Price</label>
+          <input type="number"
+                 formControlName="costPrice"
+                 class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.costPrice.errors }" />
+          <div *ngIf="submitted && f.costPrice.errors" class="invalid-feedback">
+            <div *ngIf="f.costPrice.errors?.required">Cost price is required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-12">
+          <label>Selling Price</label>
+          <input type="number"
+                 formControlName="sellPrice"
+                 class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.sellPrice.errors }" />
+          <div *ngIf="submitted && f.sellPrice.errors" class="invalid-feedback">
+            <div *ngIf="f.sellPrice.errors?.required">Selling price is required</div>
+            <div *ngIf="f.sellPrice.errors?.notNumber">Please enter a numeric value</div>
+            <div *ngIf="f.sellPrice.errors?.isLessThanCP">Selling price should not be less than Cost price</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-primary mr-1">{{ getButtonText() }}</button>
+        <button class="btn btn-secondary"
+                type="reset"
+                (click)="onReset()"
+                *ngIf="isNewProduct">Reset</button>
+      </div>
+    </form>
+  </div>
+</div>

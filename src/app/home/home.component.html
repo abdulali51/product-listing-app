@@ -1,0 +1,23 @@
+<div class="text-center search-box">
+  <div class="input-group">
+    <input id="typeahead-format"
+           type="text"
+           class="form-control"
+           placeholder="Product Search Box"
+           [(ngModel)]="model"
+           [ngbTypeahead]="search"
+           [inputFormatter]="formatter"
+           [resultFormatter]="formatter"
+           [editable]="false" />
+    <button type="button"
+            class="search close"
+            aria-label="Close"
+            (click)="model = null">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <hr>
+</div>
+
+<app-form *ngIf="model" type="edit" [product]="model" (update)="updateEventHandler($event)"></app-form>

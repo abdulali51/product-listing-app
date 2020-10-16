@@ -1,0 +1,12 @@
+.ngb-toasts {
+    max-width:350px;
+    position:fixed;
+    left:50%;
+    top: 0;
+    margin-left:-150px;
+    margin-top: 0.75em;
+
+    .toast {
+      cursor: pointer;
+    }
+}
